@@ -2,20 +2,23 @@
 
 const gamesRouter = require('express').Router();
 
-const findGameBuId = require('../middlewares/game');
-const sendGameById = require('../controllers/games');
-const findAllGames = require('../middlewares/game');
-const createGame = require('../middlewares/game');
-const sendGameCreated = require('../controllers/games');
-const  updateGame= require('../middlewares/game');
-const sendGameUpdated = require('../controllers/games');
-const deleteGame = require('../middlewares/game');
-const sendGameDeleted = require('../controllers/games');
-const checkEmptyFields = require('../middlewares/game');
-const checkIfUsersAreSafe = require('../middlewares/game');
-const checkIfCategoriesAvaliable = require('../middlewares/game')
-const checkIsGameExists = require('../middlewares/game')
-gamesRouter.get("/games/:id", findGameBuId, sendGameById);
+const{
+  findGameById,
+  findAllGames,
+  createGame,
+  updateGame,
+  deleteGame ,
+  checkEmptyFields,
+  checkIfUsersAreSafe,
+  checkIfCategoriesAvaliable,
+  checkIsGameExists 
+ }  = require('../middlewares/game');
+const{ sendGameById ,
+ sendGameCreated,
+ sendGameUpdated,
+sendGameDeleted } = require("../controllers/games")
+gamesRouter.get("/games", findAllGames, sendAllGames);
+gamesRouter.get("/games/:id", findGameById, sendGameById);
 gamesRouter.post(
   "/games",
   findAllGames,

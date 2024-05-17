@@ -1,0 +1,33 @@
+{
+	"folders": [
+		{
+			"name": "pindie-backend1",
+			"path": "."
+		},
+		{
+			"name": "controllers",
+			"path": "../pindie-backend/controllers"
+		},
+		{
+			"name": "database",
+			"path": "../pindie-backend/database"
+		},
+		{
+			"name": "middlewares",
+			"path": "../pindie-backend/middlewares"
+		},
+		{
+			"name": "models",
+			"path": "../pindie-backend/models"
+		},
+		{
+			"name": "public",
+			"path": "../pindie-backend/public"
+		},
+		{
+			"name": "routes",
+			"path": "../pindie-backend/routes"
+		}
+	],
+	"settings": {}
+}
