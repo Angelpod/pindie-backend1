@@ -74,15 +74,14 @@ const checkEmptyName = async (req, res, next) => {
   }
 };
 
-// Экспортируем функцию поиска всех категорий
-module.exports = findAllCategories;
 
-module.exports = 
+
+module.exports = {
   createCategory,
   findCategoryById,
   findAllCategories,
   updateCategory,
   deleteCategory,
   checkIsCategoryExists,
-  checkEmptyName
+  checkEmptyName}
 ;

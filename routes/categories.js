@@ -27,7 +27,7 @@ categoriesRouter.post(
   sendCategoryCreated
 );
 categoriesRouter.get("/categories", findAllCategories, sendAllCategories);
-categoriesRouter.get("/games/:id", findCategoryBuId, sendCategoryById);
+categoriesRouter.get("/games/:id", findCategoryById, sendCategoryById);
 categoriesRouter.post(
   "/categories",
   findAllCategories,

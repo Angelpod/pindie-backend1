@@ -16,6 +16,7 @@ const{
 const{ sendGameById ,
  sendGameCreated,
  sendGameUpdated,
+ sendAllGames,
 sendGameDeleted } = require("../controllers/games")
 gamesRouter.get("/games", findAllGames, sendAllGames);
 gamesRouter.get("/games/:id", findGameById, sendGameById);
@@ -31,7 +32,7 @@ gamesRouter.post(
 
 gamesRouter.put(
   "/games/:id",
-  findGameBuId,
+  findGameById,
   checkIfUsersAreSafe,
   checkIfCategoriesAvaliable,
   checkEmptyFields,

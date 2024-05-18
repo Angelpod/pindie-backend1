@@ -13,7 +13,6 @@ const findGameById = async (req, res, next) => {
   }
 }; 
 const findAllGames = async (req, res, next) => {
-  console.log("GET /games");
   req.gamesArray = await games
     .find({})
     .populate("categories")
@@ -112,7 +111,7 @@ const checkIsGameExists = async (req, res, next) => {
   }
 };
 
-module.exports = 
+module.exports = {
 findAllGames,
 findGameById,
 createGame,
@@ -121,5 +120,5 @@ deleteGame,
 checkEmptyFields,
 checkIfCategoriesAvaliable,
 checkIfUsersAreSafe,
-checkIsGameExists
+checkIsGameExists}
 ;

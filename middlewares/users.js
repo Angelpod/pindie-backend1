@@ -78,7 +78,7 @@ const checkIsUserExists = async (req, res, next) => {
     next();
   }
 };
-module.exports = 
+module.exports = {
   createUser,
   findUserById,
   findAllUsers,
@@ -86,5 +86,5 @@ module.exports =
   deleteUser,
   checkEmptyNameAndEmailAndPassword,
   checkEmptyNameAndEmail,
-  checkIsUserExists
+  checkIsUserExists}
   ;
