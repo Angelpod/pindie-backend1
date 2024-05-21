@@ -9,18 +9,22 @@ const {
   deleteUser,
   checkIsUserExists,
   checkEmptyNameAndEmailAndPassword,
-  checkEmptyNameAndEmail 
+  checkEmptyNameAndEmail ,
+  hashPassword
  } = require('../middlewares/users');
 const{ sendUserCreated,
  sendUserById ,
  sendUserDeleted,
 sendUserUpdated ,
 sendAllUsers} = require('../controllers/users');
+// routes/users.js
+
 usersRouter.post(
   "/users",
   findAllUsers,
   checkIsUserExists,
   checkEmptyNameAndEmailAndPassword,
+  hashPassword,
   createUser,
   sendUserCreated
 );

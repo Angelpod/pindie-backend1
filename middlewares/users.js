@@ -1,4 +1,8 @@
 // middlewares/users.js
+
+const users = require("../models/user");
+const bcrypt = require("bcryptjs"); // Импортируем bcrypt  
+
 const createUser = async (req, res, next) => {
   console.log("POST /users");
   try {
@@ -10,16 +14,29 @@ const createUser = async (req, res, next) => {
         res.status(400).send(JSON.stringify({ message: "Ошибка создания пользователя" }));
   }
 };
-
 // middlewares/users.js
-const findUserById = async (req, res, next) => {
-  console.log("GET /users/:id");
+
+const hashPassword = async (req, res, next) => {
   try {
-    req.user = await users.findById(req.params.id);
+    // Создаём случайную строку длиной в десять символов
+    const salt = await bcrypt.genSalt(10);
+    // Хешируем пароль
+    const hash = await bcrypt.hash(req.body.password, salt);
+    // Полученный в запросе пароль подменяем на хеш
+    req.body.password = hash;
     next();
   } catch (error) {
-    res.setHeader("Content-Type", "application/json");
-        res.status(404).send(JSON.stringify({ message: "Пользователь не найден" }));
+    res.status(400).send({ message: "Ошибка хеширования пароля" });
+  }
+};
+// middlewares/users.js
+const findUserById = async (req, res, next) => {
+  console.log("GET /api/users/:id");
+  try {
+    req.user = await users.findById(req.params.id, { password: 0 });
+    next();
+  } catch (error) {
+    res.status(404).send("User not found");
   }
 };
 // Файл middlewares/categories.js
@@ -28,8 +45,8 @@ const findUserById = async (req, res, next) => {
 const categories = require('../models/category');
 
 const findAllUsers = async (req, res, next) => {
-    // По GET-запросу на эндпоинт /categories найдём все документы категорий
-  req.usersArray = await users.find({});
+  console.log("GET /api/users");
+  req.usersArray = await users.find({}, { password: 0 });
   next();
 };
 const updateUser = async (req, res, next) => {
@@ -86,5 +103,7 @@ module.exports = {
   deleteUser,
   checkEmptyNameAndEmailAndPassword,
   checkEmptyNameAndEmail,
-  checkIsUserExists}
+  checkIsUserExists,
+  hashPassword
+}
   ;
