@@ -1,5 +1,4 @@
 // middlewares/users.js
-
 const users = require("../models/user");
 const bcrypt = require("bcryptjs"); // Импортируем bcrypt  
 

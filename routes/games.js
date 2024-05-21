@@ -1,7 +1,7 @@
 // Файл routes/games.js
 
 const gamesRouter = require('express').Router();
-
+const { checkAuth } = require("../middlewares/auth.js");
 const{
   findGameById,
   findAllGames,
@@ -27,9 +27,9 @@ gamesRouter.post(
   checkIfCategoriesAvaliable,
   checkEmptyFields,
   createGame,
-  sendGameCreated
+  sendGameCreated,
+  checkAuth,
 );
-
 gamesRouter.put(
   "/games/:id",
   findGameById,
@@ -37,11 +37,13 @@ gamesRouter.put(
   checkIfCategoriesAvaliable,
   checkEmptyFields,
   updateGame,
-  sendGameUpdated
+  sendGameUpdated,
+  checkAuth
 );
 gamesRouter.delete(
   "/games/:id", 
   deleteGame,
-  sendGameDeleted 
+  sendGameDeleted,
+  checkAuth,
 );
 module.exports = gamesRouter;

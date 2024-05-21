@@ -1,4 +1,4 @@
-
+const games = require("../models/game")
 const findGameById = async (req, res, next) => {
   try {
       // Пробуем найти игру по id
@@ -12,16 +12,26 @@ const findGameById = async (req, res, next) => {
     res.status(404).send({ message: "Игра не найдена" });
   }
 }; 
+// middlewares/games.js
+
 const findAllGames = async (req, res, next) => {
+  // Поиск всех игр в проекте по заданной категории
+  if(req.query["categories.name"]) { 
+    req.gamesArray = await games.findGameByCategory(req.query["categories.name"]);
+    next();
+    return;
+  }
+  // Поиск всех игр в проекте
   req.gamesArray = await games
     .find({})
     .populate("categories")
     .populate({
-          path: "users",
-          select: "-password"
-        });
+      path: "users",
+      select: "-password" // Исключим данные о паролях пользователей
+    })
   next();
 };
+
 
 const updateGame = async (req, res, next) => {
   try {

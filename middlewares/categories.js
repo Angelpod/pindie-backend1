@@ -1,4 +1,5 @@
 // middlewares/categories.js
+const category = require("../models/category")
 const createCategory = async (req, res, next) => {
   console.log("POST /categories");
   try {
