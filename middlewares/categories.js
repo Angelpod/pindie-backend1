@@ -42,13 +42,13 @@ const updateCategory = async (req, res, next) => {
   }
 };
 const deleteCategory = async (req, res, next) => {
-  console.log("DELETE /categories/:id");
+  console.log("DELETE /category/:id");
   try {
     req.category = await categories.findByIdAndDelete(req.params.id);
     next();
   } catch (error) {
     res.setHeader("Content-Type", "application/json");
-        res.status(400).send(JSON.stringify({ message: "Ошибка удаления категории" }));
+        res.status(400).send(JSON.stringify({ message: "Ошибка удаления пользователя" }));
   }
 };
 const checkIsCategoryExists = async (req, res, next) => {

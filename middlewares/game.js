@@ -13,7 +13,13 @@ const findGameById = async (req, res, next) => {
   }
 }; 
 // middlewares/games.js
-
+const checkIsVoteRequest = async (req, res, next) => {
+  // Если в запросе присылают только поле users
+if (Object.keys(req.body).length === 1 && req.body.users) {
+  req.isVoteRequest = true;
+}
+next();
+};
 const findAllGames = async (req, res, next) => {
   // Поиск всех игр в проекте по заданной категории
   if(req.query["categories.name"]) { 
@@ -59,36 +65,25 @@ const deleteGame = async (req, res, next) => {
     req.game = await games.findByIdAndDelete(req.params.id);
     next();
   } catch (error) {
-    res.status(400).send({ message: "Error deleting game" });
+    res.setHeader("Content-Type", "application/json");
+    res.status(400).send(JSON.stringify({ message: "Ошибка удаления пользователя" }));
+    //res.status(400).send({ message: "Error deleting game" });
   }
 };
 const checkEmptyFields = async (req, res, next) => {
-  if (
-    !req.body.title ||
-    !req.body.description ||
-    !req.body.image ||
-    !req.body.link ||
-    !req.body.developer
-  ) {
-    // Если какое-то из полей отсутствует, то не будем обрабатывать запрос дальше,
-    // а ответим кодом 400 — данные неверны.
-    res.setHeader("Content-Type", "application/json");
-        res.status(400).send(JSON.stringify({ message: "Заполни все поля" }));
-  } else {
-    // Если всё в порядке, то передадим управление следующим миддлварам
+  if(req.isVoteRequest) {
     next();
-  }
+    return;
+  } 
 };
 // Файл middlewares/games.js
 
 const checkIfCategoriesAvaliable = async (req, res, next) => {
   // Проверяем наличие жанра у игры
-if (!req.body.categories || req.body.categories.length === 0) {
-  res.setHeader("Content-Type", "application/json");
-      res.status(400).send(JSON.stringify({ message: "Выбери хотя бы одну категорию" }));
-} else {
-  next();
-}
+  if(req.isVoteRequest) {
+    next();
+    return;
+  } 
 };
 // Файл middlewares/games.js
 
@@ -130,5 +125,7 @@ deleteGame,
 checkEmptyFields,
 checkIfCategoriesAvaliable,
 checkIfUsersAreSafe,
-checkIsGameExists}
+checkIsGameExists,
+checkIsVoteRequest
+}
 ;
