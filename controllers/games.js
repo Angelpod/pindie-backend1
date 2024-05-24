@@ -17,7 +17,7 @@ const sendGameCreated = (req, res) => {
 
 const sendGameUpdated = (req, res) => {
   res.setHeader("Content-Type", "application/json");
-  res.end({ message: "Игра обновлена" });
+  res.send({ message: "Игра обновлена" });
 };
 // Файл controllers/games.js
 

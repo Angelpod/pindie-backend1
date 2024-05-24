@@ -84,5 +84,6 @@ module.exports = {
   updateCategory,
   deleteCategory,
   checkIsCategoryExists,
-  checkEmptyName}
+  checkEmptyName,
+}
 ;

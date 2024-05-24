@@ -20,26 +20,26 @@ const {
 
 
 categoriesRouter.get("/categories", findAllCategories, sendAllCategories);
-categoriesRouter.get("/games/:id", findCategoryById, sendCategoryById);
+categoriesRouter.get("/categories/:id", findCategoryById, sendCategoryById);
 categoriesRouter.post(
   "/categories",
   findAllCategories,
-  checkIsCategoryExists,
   checkEmptyName,
+  checkIsCategoryExists,
+  checkAuth,
   createCategory,
-  sendCategoryCreated,
-  checkAuth
+  sendCategoryCreated
 );
 
 categoriesRouter.put(
   "/categories/:id",
   checkEmptyName,
+  checkAuth,
   updateCategory,
-  sendCategoryUpdated,
-  checkAuth
+  sendCategoryUpdated
 );
 categoriesRouter.delete(
-  "/games/:id", 
+  "/categories/:id", 
   deleteCategory,
   sendCategoryDeleted,
   checkAuth
